@@ -1,0 +1,3 @@
+enum OptionEnum{
+  yes, no
+}
