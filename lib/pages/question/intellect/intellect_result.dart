@@ -29,6 +29,13 @@ class _IntellectResultState extends State<IntellectResult> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset('assets/images/result.png'),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Text(
+                  'Nhập tuổi của bé',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
               TextField(
                 controller: ageCtrl,
                 keyboardType: TextInputType.number,

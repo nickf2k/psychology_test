@@ -44,7 +44,7 @@ class _QuestionPageState extends State<QuestionPage> {
         .getQuestions()
         .sublist(_category.startIndex, _category.endIndex + 1);
     questions.forEach((element) {
-      attendace[element] = 0;
+      attendace[element] = -1;
     }); // cac cau hoi phai khac nhau
   }
 
@@ -111,6 +111,8 @@ class _QuestionPageState extends State<QuestionPage> {
                     ? AppButton(
                         title: 'Hoàn thành',
                         onPressed: () {
+                          bool canNext = handleLogicCanNext();
+                          if (!canNext) return;
                           var result;
                           attendace.forEach((key, value) {
                             setState(() {
@@ -135,16 +137,13 @@ class _QuestionPageState extends State<QuestionPage> {
                     : AppButton(
                         title: 'Tiếp',
                         onPressed: () {
-                          attendace.forEach((key, value) {
-                            setState(() {
-                              point = point + value;
-                            });
-                          });
+                          bool canNext = handleLogicCanNext();
+                          if (!canNext) return;
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => QuestionPage(
                                     categoryIndex: widget.categoryIndex + 1,
                                     dataInstance: widget.dataInstance,
-                                    initPoint: point,
+                                    initPoint: point + widget.initPoint,
                                   )));
                         },
                       )
@@ -165,5 +164,39 @@ class _QuestionPageState extends State<QuestionPage> {
       return RouteConstant.HYPER_ACTIVITY_RESULT;
     if (dataInstance is IntellectData) return RouteConstant.INTELLECT_RESULT;
     return RouteConstant.AUTISM_RESULT;
+  }
+
+  bool handleLogicCanNext() {
+    bool canNext = true;
+
+    for (var value in attendace.values) {
+      // var value = value.
+      if (value != -1) {
+        setState(() {
+          point = point + value;
+        });
+      } else {
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                  ),
+                  title: Center(
+                    child: Text(
+                      "Có lỗi xảy ra",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  content: Container(
+                      height: 40,
+                      child:
+                          Center(child: Text("Hãy trả lời toàn bộ câu hỏi"))),
+                ));
+        canNext = false;
+        break;
+      }
+    }
+    return canNext;
   }
 }
