@@ -14,7 +14,11 @@ class QuestionPage extends StatefulWidget {
   final bool isAutismTest;
 
   const QuestionPage(
-      {Key key, this.categoryIndex, this.dataInstance, this.initPoint, this.isAutismTest = false})
+      {Key key,
+      this.categoryIndex,
+      this.dataInstance,
+      this.initPoint,
+      this.isAutismTest = false})
       : super(key: key);
 
   @override
@@ -87,8 +91,9 @@ class _QuestionPageState extends State<QuestionPage> {
                                             });
                                           },
                                         ),
-                                        widget.isAutismTest?Text(e == 0? 'Có' : 'Không'):
-                                        Text(e == 1? 'Có' : 'Không')
+                                        widget.isAutismTest
+                                            ? Text(e == 0 ? 'Có' : 'Không')
+                                            : Text(e == 1 ? 'Có' : 'Không')
                                       ],
                                     ))
                                 .toList(),
@@ -146,6 +151,7 @@ class _QuestionPageState extends State<QuestionPage> {
                                     categoryIndex: widget.categoryIndex + 1,
                                     dataInstance: widget.dataInstance,
                                     initPoint: point + widget.initPoint,
+                                    isAutismTest: widget.isAutismTest,
                                   )));
                         },
                       )
