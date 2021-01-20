@@ -42,12 +42,12 @@ class AutismIntroducePage extends StatelessWidget {
               title: 'Bắt đầu',
               minWidth: 200,
               fontSize: 18,
-              onPressed: () =>
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => QuestionPage(
+              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => QuestionPage(
                         categoryIndex: 0,
                         dataInstance: AutismData(),
                         initPoint: 0,
+                        isAutismTest: true,
                       ))),
             )
           ],
